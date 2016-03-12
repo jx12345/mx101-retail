@@ -5,8 +5,13 @@ mongoose.connect('mongodb://localhost:27017/retail');
 var User = mongoose.model('User', schema, 'users');
 
 var user = new User({
-  name: 'Jim Margetts',
-  email: 'jim.margetts@gmail.com'
+  profile: {
+    username: 'Jim Margetts',
+    picture: 'http://jim.margetts@gmail.com'
+  },
+  data: {
+    oauth: 'testoauth'
+  }
 });
 
 user.save(function(error) {
@@ -15,7 +20,7 @@ user.save(function(error) {
     process.exit(1);
   }
 
-  User.find({ email: 'jim.margetts@gmail.com' }, function(error, docs) {
+  User.find({}, function(error, docs) {
     if (error) {
       console.log(error);
       process.exit(1);

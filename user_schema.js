@@ -1,19 +1,30 @@
 var mongoose = require('mongoose');
 
 module.exports = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true
+  profile: {
+    username: {
+      type: String,
+      required: true,
+      lowercase: true
+    },
+    picture: {
+      type: String,
+      required: true,
+      match: /^http:\/\//i
+    }
   },
-  email: {
-    type: String,
-    required: true,
-    match: /.+@.+\..+/,
-    lowercase: true
-  },
-  loggedInCount: {
-    type: Number,
-    default: 0
+  data: {
+    oauth: { type: String, required: true },
+    cart: [{
+      product: {
+        type: mongoose.Schema.Types.ObjectId
+      },
+      quanity: {
+        type: Number,
+        default: 1,
+        min: 1
+      }
+    }]
   }
 });
 
